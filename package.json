@@ -1,0 +1,50 @@
+{
+  "name": "node-powerbi",
+  "version": "0.0.1",
+  "description": "",
+  "homepage": "https://github.com/haritzmedina/node-powerbi",
+  "author": {
+    "name": "Haritz Medina",
+    "email": "haritzmedina@gmail.com",
+    "url": "https://haritzmedina.com"
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "keywords": [
+    "powerbi",
+    "node",
+    "api"
+  ],
+  "devDependencies": {
+    "coveralls": "^2.12.0",
+    "nsp": "^2.6.3",
+    "eslint": "^3.18.0",
+    "eslint-config-xo-space": "^0.16.0",
+    "jest": "^19.0.2",
+    "jest-cli": "^19.0.1"
+  },
+  "scripts": {
+    "prepublish": "nsp check",
+    "pretest": "eslint **/*.js --fix",
+    "test": "jest"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "jest": true,
+      "node": true
+    }
+  },
+  "repository": "haritzmedina/node-powerbi",
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2",
+    "require": "latest",
+    "request": "2.81.0"
+  }
+}
