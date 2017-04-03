@@ -32,6 +32,9 @@
   },
   "eslintConfig": {
     "extends": "xo-space",
+    "rules":{
+      "camelcase": "off"
+    },
     "env": {
       "jest": true,
       "node": true
