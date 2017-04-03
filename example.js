@@ -8,6 +8,8 @@ const uuid = require('uuid');
 let clientId = process.env.POWERBI_CLIENT_ID || null;
 let redirectUri = process.env.POWERBI_REDIRECT_URI || 'http://localhost:3000';
 
+let EXAMPLE_DATASET_ID = process.env.EXAMPLE_DATASET_ID; // FIX IT to run the example
+
 let powerbiAuthServer = new PowerBIAuthServer(clientId, redirectUri);
 
 powerbiAuthServer.init();
@@ -21,33 +23,44 @@ powerbiAuthServer.setCallbackOnAuthentication(userUuid, (userInfo)=>{
   let refreshToken = userInfo['refreshToken'];
   let powerbi = new PowerBI(accessToken, refreshToken);
 
-  powerbi.deleteRows('21892f21-ea66-495a-b2a5-5c868b3a1e05', 'ExampleTable', (err, result)=>{
-    console.log(err);
-    console.log(result);
-  });
 
-  /*powerbi.addRows('21892f21-ea66-495a-b2a5-5c868b3a1e05', 'ExampleTable', [{ExampleColumn: Math.random()}], (err, result)=>{
-    console.log(result);
-  });*/
-
-  /*powerbi.listTables('21892f21-ea66-495a-b2a5-5c868b3a1e05', (err, tables)=>{
-    console.log(tables);
-  });*/
-
-  /*powerbi.createDataset('ExampleSLR', 'Push', [{ name: 'ExampleTable', columns: [{name: 'ExampleColumn', dataType: 'String'}]}], (err, dataset)=>{
+  // EXAMPLE 1 Create a dataset
+  powerbi.createDataset('ExampleSLR', 'Push', [{ name: 'ExampleTable', columns: [{name: 'ExampleColumn', dataType: 'String'}]}], (err, dataset)=>{
     if(err){
       console.log(err);
     }
     else{
       console.log('Created dataset');
     }
-    /*powerbi.deleteDataset(dataset.id, (err)=>{
-      if(err){
-        console.log(err);
-      }
-      else{
-        console.log('Deleted dataset');
-      }
-    });
-  });*/
+  });
+
+  // EXAMPLE 2 DELETE A DATASET
+  powerbi.deleteDataset(EXAMPLE_DATASET_ID, (err)=>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log('Deleted dataset');
+    }
+  });
+
+  // EXAMPLE 3 List Datasets
+  powerbi.listTables(EXAMPLE_DATASET_ID, (err, tables)=>{
+    console.log(tables);
+  });
+
+
+  // EXAMPLE 4 Add row to a table
+  powerbi.addRows(EXAMPLE_DATASET_ID, 'ExampleTable', [{ExampleColumn: Math.random()}], (err, result)=>{
+    console.log(result);
+  });
+
+
+  // EXAMPLE 5 Remove rows from a table
+  powerbi.deleteRows(EXAMPLE_DATASET_ID, 'ExampleTable', (err, result)=>{
+    console.log(err);
+    console.log(result);
+  });
+
+
 });
