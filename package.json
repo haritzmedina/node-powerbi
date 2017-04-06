@@ -1,6 +1,6 @@
 {
   "name": "node-powerbi",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "",
   "homepage": "https://github.com/haritzmedina/node-powerbi",
   "author": {
@@ -32,7 +32,7 @@
   },
   "eslintConfig": {
     "extends": "xo-space",
-    "rules":{
+    "rules": {
       "camelcase": "off"
     },
     "env": {
@@ -46,8 +46,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.2",
+    "request": "2.81.0",
     "require": "latest",
-    "request": "2.81.0"
+    "restify": "^4.3.0"
   }
 }

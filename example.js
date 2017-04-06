@@ -5,12 +5,17 @@ const PowerBIAuthServer = NodePowerBI.powerbiAuth;
 
 const uuid = require('uuid');
 
-let clientId = process.env.POWERBI_CLIENT_ID || null;
-let redirectUri = process.env.POWERBI_REDIRECT_URI || 'http://localhost:3000';
+
+let serverParams = {
+  clientId: process.env.POWERBI_CLIENT_ID || null,
+  redirectUri : process.env.POWERBI_REDIRECT_URI || 'http://localhost:3000',
+  serverPort : process.env.POWERBI_SERVER_PORT || 3000,
+  clientSecret: null
+};
 
 let EXAMPLE_DATASET_ID = process.env.EXAMPLE_DATASET_ID; // FIX IT to run the example
 
-let powerbiAuthServer = new PowerBIAuthServer(clientId, redirectUri);
+let powerbiAuthServer = new PowerBIAuthServer(serverParams);
 
 powerbiAuthServer.init();
 
@@ -26,8 +31,16 @@ powerbiAuthServer.setCallbackOnAuthentication(userUuid, (err, userInfo) => {
   let refreshToken = userInfo.refreshToken;
   let powerbi = new PowerBI(accessToken, refreshToken);
 
+  // EXAMPLE 0 Refresh token
+  powerbiAuthServer.refreshAccessToken(refreshToken, (err, result)=>{
+    console.log('Your old access token is: '+accessToken);
+    console.log('Your new access token is: '+result.accessToken);
+    console.log('Your old refresh token is: '+refreshToken);
+    console.log('Your new refresh token is: '+result.refreshToken);
+  });
+
   // EXAMPLE 1 Create a dataset
-  powerbi.createDataset('Example', 'Push', [{name: 'ExampleTable', columns: [{name: 'ExampleColumn', dataType: 'String'}]}], (err, dataset) => {
+  /*powerbi.createDataset('Example', 'Push', [{name: 'ExampleTable', columns: [{name: 'ExampleColumn', dataType: 'String'}]}], (err, dataset) => {
     if (err) {
       console.log(err);
     } else {
@@ -74,5 +87,6 @@ powerbiAuthServer.setCallbackOnAuthentication(userUuid, (err, userInfo) => {
   powerbi.deleteRows(EXAMPLE_DATASET_ID, 'ExampleTable', (err, result) => {
     console.log(err);
     console.log(result);
-  });
+  });*/
+
 });
