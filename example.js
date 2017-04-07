@@ -1,5 +1,7 @@
 const NodePowerBI = require('./');
 
+const restify = require('restify');
+
 const PowerBI = NodePowerBI.powerbi;
 const PowerBIAuthServer = NodePowerBI.powerbiAuth;
 
@@ -15,7 +17,13 @@ let serverParams = {
 
 let EXAMPLE_DATASET_ID = process.env.EXAMPLE_DATASET_ID; // FIX IT to run the example
 
-let powerbiAuthServer = new PowerBIAuthServer(serverParams);
+const server = restify.createServer({});
+server.listen(3000, function(){
+  console.log(`${server.name} listening to ${server.url}`);
+});
+
+
+let powerbiAuthServer = new PowerBIAuthServer(serverParams, server);
 
 powerbiAuthServer.init();
 
@@ -40,7 +48,7 @@ powerbiAuthServer.setCallbackOnAuthentication(userUuid, (err, userInfo) => {
   });
 
   // EXAMPLE 1 Create a dataset
-  /*powerbi.createDataset('Example', 'Push', [{name: 'ExampleTable', columns: [{name: 'ExampleColumn', dataType: 'String'}]}], (err, dataset) => {
+  powerbi.createDataset('Example', 'Push', [{name: 'ExampleTable', columns: [{name: 'ExampleColumn', dataType: 'String'}]}], (err, dataset) => {
     if (err) {
       console.log(err);
     } else {
@@ -79,7 +87,9 @@ powerbiAuthServer.setCallbackOnAuthentication(userUuid, (err, userInfo) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(result);
+      if(result){
+        console.log('Correctly added');
+      }
     }
   });
 
@@ -87,6 +97,6 @@ powerbiAuthServer.setCallbackOnAuthentication(userUuid, (err, userInfo) => {
   powerbi.deleteRows(EXAMPLE_DATASET_ID, 'ExampleTable', (err, result) => {
     console.log(err);
     console.log(result);
-  });*/
+  });
 
 });
