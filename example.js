@@ -7,21 +7,19 @@ const PowerBIAuthServer = NodePowerBI.powerbiAuth;
 
 const uuid = require('uuid');
 
-
 let serverParams = {
   clientId: process.env.POWERBI_CLIENT_ID || null,
-  redirectUri : process.env.POWERBI_REDIRECT_URI || 'http://localhost:3000',
-  serverPort : process.env.POWERBI_SERVER_PORT || 3000,
+  redirectUri: process.env.POWERBI_REDIRECT_URI || 'http://localhost:3000',
+  serverPort: process.env.POWERBI_SERVER_PORT || 3000,
   clientSecret: null
 };
 
 let EXAMPLE_DATASET_ID = process.env.EXAMPLE_DATASET_ID; // FIX IT to run the example
 
 const server = restify.createServer({});
-server.listen(3000, function(){
+server.listen(3000, function () {
   console.log(`${server.name} listening to ${server.url}`);
 });
-
 
 let powerbiAuthServer = new PowerBIAuthServer(serverParams, server);
 
@@ -40,11 +38,15 @@ powerbiAuthServer.setCallbackOnAuthentication(userUuid, (err, userInfo) => {
   let powerbi = new PowerBI(accessToken, refreshToken);
 
   // EXAMPLE 0 Refresh token
-  powerbiAuthServer.refreshAccessToken(refreshToken, (err, result)=>{
-    console.log('Your old access token is: '+accessToken);
-    console.log('Your new access token is: '+result.accessToken);
-    console.log('Your old refresh token is: '+refreshToken);
-    console.log('Your new refresh token is: '+result.refreshToken);
+  powerbiAuthServer.refreshAccessToken(refreshToken, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Your old access token is: ' + accessToken);
+      console.log('Your new access token is: ' + result.accessToken);
+      console.log('Your old refresh token is: ' + refreshToken);
+      console.log('Your new refresh token is: ' + result.refreshToken);
+    }
   });
 
   // EXAMPLE 1 Create a dataset
@@ -64,7 +66,7 @@ powerbiAuthServer.setCallbackOnAuthentication(userUuid, (err, userInfo) => {
     }
   });
 
-  // EXAMPLE 2 DELETE A DATASET
+  // EXAMPLE 2 Delete a dataset
   powerbi.deleteDataset(EXAMPLE_DATASET_ID, err => {
     if (err) {
       console.log(err);
@@ -86,10 +88,8 @@ powerbiAuthServer.setCallbackOnAuthentication(userUuid, (err, userInfo) => {
   powerbi.addRows(EXAMPLE_DATASET_ID, 'ExampleTable', [{ExampleColumn: Math.random()}], (err, result) => {
     if (err) {
       console.log(err);
-    } else {
-      if(result){
-        console.log('Correctly added');
-      }
+    } else if (result) {
+      console.log('Correctly added');
     }
   });
 
@@ -98,5 +98,4 @@ powerbiAuthServer.setCallbackOnAuthentication(userUuid, (err, userInfo) => {
     console.log(err);
     console.log(result);
   });
-
 });

@@ -1,7 +1,7 @@
 {
   "name": "node-powerbi",
-  "version": "0.0.6",
-  "description": "",
+  "version": "0.0.7",
+  "description": "Node wrapper for powerbi service API",
   "homepage": "https://github.com/haritzmedina/node-powerbi",
   "author": {
     "name": "Haritz Medina",
