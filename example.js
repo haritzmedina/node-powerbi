@@ -1,5 +1,6 @@
-const NodePowerBI = require('./');
+require('dotenv').config();
 
+const NodePowerBI = require('./');
 const restify = require('restify');
 
 const PowerBI = NodePowerBI.powerbi;
@@ -17,7 +18,7 @@ let serverParams = {
 let EXAMPLE_DATASET_ID = process.env.EXAMPLE_DATASET_ID; // FIX IT to run the example
 
 const server = restify.createServer({});
-server.listen(3000, function () {
+server.listen(serverParams.serverPort, function () {
   console.log(`${server.name} listening to ${server.url}`);
 });
 

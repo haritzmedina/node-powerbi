@@ -1,6 +1,6 @@
 {
   "name": "node-powerbi",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Node wrapper for powerbi service API",
   "homepage": "https://github.com/haritzmedina/node-powerbi",
   "author": {
@@ -20,10 +20,10 @@
   "devDependencies": {
     "coveralls": "^2.12.0",
     "nsp": "^2.6.3",
-    "eslint": "^3.18.0",
+    "eslint": "^4.2.0",
     "eslint-config-xo-space": "^0.16.0",
-    "jest": "^19.0.2",
-    "jest-cli": "^19.0.1"
+    "jest": "^20.0.4",
+    "jest-cli": "^20.0.4"
   },
   "scripts": {
     "prepublish": "nsp check",
@@ -46,8 +46,8 @@
   },
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "request": "2.81.0",
-    "require": "latest",
-    "restify": "^4.3.0"
+    "restify": "^5.0.0"
   }
 }
