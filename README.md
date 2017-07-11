@@ -1,7 +1,7 @@
 # node-powerbi [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > 
 
-PowerBI service API nodejs wrapper, based on [Apiary](http://docs.powerbi.apiary.io]).
+PowerBI service API nodejs wrapper, based on [Apiary](http://docs.powerbi.apiary.io).
 
 ## Installation
 
